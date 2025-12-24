@@ -1,11 +1,148 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import IterationCard from "../components/IterationCard";
+import AwardCard from "../components/AwardCard.jsx";
+import ContestTimeline from "../components/ContestTimeline.jsx";
+import TeamSection from "../components/TeamSection.jsx";
+import ContactSection from "../components/ContactSection.jsx";
+import HeroSection from "../components/HeroSection.jsx";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const iterations = [
+  {
+    name: "The Basket Bot",
+    description:
+      "Prioritizing scoring and control, this robot featured an almost 20 block storage capacity that it used to quickly fill long goals, both in skills and head-to-head matches. With a pneumatic hood to quickly switch between scoring and storing and multiple, separately powered rollers, the robot was also capable of sorting its blocks and scoring exclusively one color. Furthermore, the deployable hood roller ensured that the robot had strong block pushing power. Although scoring and storing were its main capabilities, this robot also featured a de-scoring wing that found success and frequent use in head-to-head matches, pushing opposing robots blocks out of goals. To acquire even more blocks to store than those starting on the field, an innovative standoff-plastic match loader could effectively extract blocks in any orientation from the match loader.",
+    image: "/basket-bot.png", // optional
+  },
+  {
+    name: "Hybrid S-Shaped Robot",
+    description:
+      "Focusing on skills more than head-to-head matches, this robot combines the design principles of standard S-shaped robots with those of a C-shaped robot. For faster-scoring autonomous routines, this robot makes use of front-to-front scoring for both levels of the middle goal and front-to-back scoring for the long goals, and this configuration reduces the amount of rotating that the robot does during its routines, saving valuable time. Uniquely, the method by which this is achieved is through separately-powered rollers, saving air for de-scoring mechanisms and creating the need for a unique ratcheting mechanism. Based on issues from our previous tournament, this robot iterated on our unique match loaded, added a hood for descoring, and featured a second wing. Although harder to engineer, this robot provided our team with valuable experience with string routing and working with polycarbonate, which will greatly benefit us in the future. ",
+    image: "/S-bot.png",
+  },
+];
+
+export const contests = [
+  {
+    id: "first-event",
+    name: "Katy Battle of the Bots",
+    location: "Katy, TX",
+    date: "Oct 2025",
+    status: "past",
+    result: "Judges Award",
+    description:
+      "Versyn 1137B competed with our Basket Bot and showed strong effort in engineering notebook and interview, earning a Judges Award for documentation and strategic play.",
+  },
+  {
+    id: "second-event",
+    name: "Moody Mania",
+    location: "Galveston, TX",
+    date: "Nov 2025",
+    status: "past",
+    result: "Competitive Experience",
+    description:
+      "At this event, we fielded an S-bot iteration. We gained valuable match experience and refined our control and consistency despite a challenging skill cycle. This informed our next major redesign.",
+  },
+  {
+    id: "third-event",
+    name: "Deck the Bots",
+    location: "Houston, TX",
+    date: "Dec 2025",
+    status: "past",
+    result: "Design Award",
+    description:
+      "Using a direct ramp robot tailored to the meta, Versyn 1137B finished strong with a solid 16th place in driver skills and was recognized with the Design Award for creative solution and drive efficiency.",
+  },
+  {
+    id: "fourth-event",
+    name: "???",
+    location: "Coming Soon",
+    date: "Feb 2025",
+    status: "upcoming",
+    result: "Coming Soon",
+    description:
+      "Hopeful and preparing...",
+  },
+];
+
+export const awards = [
+  {
+    title: "Judges Award",
+    event: "Katy Battle of the Bots",
+    year: "2025",
+    description: "Recognizes teams deserving of special recognition for attributes not fully captured by performance awards, highlighting exemplary effort, teamwork, innovation, perseverance, professionalism, or unique accomplishments.",
+  },
+  {
+    title: "Design Award",
+    event: "Deck the Bots",
+    year: "2025",
+    description: "Recognizes teams for an organized, efficient, and well-documented Engineering Design Process (EDP), focusing on a quality robot built with minimal adult help, excellent notebook, strong teamwork, and clear communication during the judge interview.",
+  },
+];
+
+
 ---
+<BaseLayout title="VEX Robotics Team">
+  <!-- HERO -->
+  <HeroSection client:load />
 
-<Layout>
-	<Welcome />
-</Layout>
+  <!-- TEAM -->
+  <TeamSection client:load />
+
+  <!-- Season -->
+  <section id="season" class="py-32 px-6 bg-black">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-4xl font-bold text-red-500 mb-16 text-center">
+      2025-2026 Season
+    </h2>
+
+    <ContestTimeline client:load contests={contests} sectionId="season" />
+  </div>
+</section>
+
+
+<section id="awards" class="py-32 px-6 bg-black relative overflow-hidden">
+  {/* Background pulse */}
+  <div class="absolute inset-0 bg-red-600/5 blur-3xl animate-pulse" />
+
+  <div class="relative max-w-5xl mx-auto">
+    <h2 class="text-4xl font-bold text-red-500 mb-12 text-center">
+      Awards & Recognition
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {awards.map((award, i) => (
+        <AwardCard client:load award={award} index={i} />
+      ))}
+    </div>
+  </div>
+</section>
+
+
+  <!-- Iterations -->
+  <section id="iterations" class="py-32 px-6 bg-black">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-red-500 mb-12 text-center">
+        Iterations
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {iterations.map((iteration, index) => (
+          <IterationCard
+            client:load
+            {...iteration}
+            index={index}
+          />
+        ))}
+      </div>
+
+      <h3 class="text-center text-red-500 mt-12 text-xl animate-pulse">
+        More in progress...
+      </h3>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <ContactSection client:load />
+</BaseLayout>

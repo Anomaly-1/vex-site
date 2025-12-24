@@ -1,0 +1,28 @@
+---
+import Cursor from "../components/Cursor";
+import SideNav from "../components/SideNav";
+import "../styles/global.css";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-black text-white font-sans">
+    <Cursor client:load />
+    <SideNav client:load />
+    <main class="ml-0 md:ml-16">
+      <slot />
+    </main>
+  </body>
+</html>
