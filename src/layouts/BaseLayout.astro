@@ -1,7 +1,9 @@
 ---
 import Cursor from "../components/Cursor";
 import SideNav from "../components/SideNav";
+import DesktopOnly from "../components/DesktopOnly";
 import "../styles/global.css";
+
 const { title } = Astro.props;
 ---
 
@@ -20,7 +22,9 @@ const { title } = Astro.props;
   </head>
   <body class="bg-black text-white font-sans">
     <Cursor client:load />
+
     <SideNav client:load />
+
     <main class="ml-0 md:ml-16">
       <slot />
     </main>
