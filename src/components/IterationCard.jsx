@@ -30,8 +30,7 @@ export default function IterationCard({ name, description, image, index = 0 }) {
       >
         {name}
       </motion.h3>
-
-      text={description}
+      {description}
     </motion.div>
   );
 }
